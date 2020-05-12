@@ -1,0 +1,26 @@
+name: Crawl Articles
+
+on:
+  push:
+    branches: [ trigger/crawl ]
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: lein deps
+      - name: Run tests
+        run: lein test
+      - name: Crawl articles
+        run: lein run -m mpark-newsletter.core/crawl-articles
+      - name: Commit & Push
+        run: |
+          git config --global user.name 'autumn-n'
+          git config --global user.email 'autumn.bom@gmail.com'
+          git add .
+          git commit -am "[Github Action] Crawled articles"
+          git push
