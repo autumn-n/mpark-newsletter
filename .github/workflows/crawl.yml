@@ -16,7 +16,7 @@ jobs:
       - name: Run tests
         run: lein test
       - name: Crawl articles
-        run: lein run -m mpark-newsletter.core/crawl-articles
+        run: lein run -m mpark-newsletter.core/crawl
       - name: Commit & Push
         run: |
           git config --global user.name 'autumn-n.bot'

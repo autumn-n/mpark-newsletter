@@ -1,7 +1,9 @@
 (ns mpark-newsletter.html
   (:require [hickory.core :as h-c]
             [hickory.select :as h-s]
-            [mpark-newsletter.util :refer :all]))
+            [mpark-newsletter.util :refer :all]
+            [clojure.edn :as edn]
+            [clojure.java.io :as io]))
 
 (defn parse-li
   [li]
@@ -29,3 +31,9 @@
                    fn-select first first-content :content)
         articles (into #{} (mapcat parse-article) fences)]
     (vec articles)))
+
+(defn aggregate-today-articles
+  [directory]
+  (let [files (file-seq (io/file directory))
+        today-articles (into #{} (mapcat (comp edn/read-string slurp) (filter is-file? files)))]
+    (vec today-articles)))
