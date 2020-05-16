@@ -19,8 +19,8 @@ jobs:
         run: lein run -m mpark-newsletter.core/aggregate
       - name: Commit & Push
         run: |
-          git config --global user.name 'autumn-n'
-          git config --global user.email 'autumn.bom@gmail.com'
+          git config --global user.name 'autumn-n.bot'
+          git config --global user.email 'autumn-n@bot.com'
           git add .
           git commit -am "[Github Action] Aggregated articles"
           git push
