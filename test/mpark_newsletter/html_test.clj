@@ -23,8 +23,8 @@
   (testing "parse"
     (let [page-html (-> "page.html" io/resource slurp)
           articles (parse page-html)]
-      (is (= 23 (count articles)))
-      (is (= {:nick  "멘붕"
-              :title "13 부활투 기념 이벤트합니다"
-              :url   "http://mlbpark.donga.com/mp/b.php?b=kbotown&id=202005120042496454&m=view"}
+      (is (= 17 (count articles)))
+      (is (= {:nick  "J.Cueto."
+              :title "트레이드 진행했군요ㄷㄷㄷ"
+              :url   "http://mlbpark.donga.com/mp/b.php?b=kbotown&id=202005110042487403&m=view"}
              (first articles))))))

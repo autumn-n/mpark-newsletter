@@ -26,9 +26,11 @@
   [page-html]
   (let [pc-kbotown-today (h-s/child (h-s/tag :div) (h-s/id "PC_kbotown_today"))
         fn-select (partial h-s/select pc-kbotown-today)
+        fn-except-right-fence (partial take 2)
         fences (-> page-html
                    h-c/parse h-c/as-hickory
-                   fn-select first first-content :content)
+                   fn-select first first-content :content
+                   fn-except-right-fence)
         articles (into #{} (mapcat parse-article) fences)]
     (vec articles)))
 
