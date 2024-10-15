@@ -10,13 +10,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Prepare java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '8'
+
+      - name: Install clojure tools
+        uses: DeLaGuardo/setup-clojure@12.5
+        with:
+          lein: 2.9.1
+          
       - name: Install dependencies
         run: lein deps
+        
       - name: Run tests
         run: lein test
+        
       - name: Aggregate articles
         run: lein run -m mpark-newsletter.core/aggregate
+        
       - name: Commit & Push
         run: |
           git config --global user.name 'autumn-n.bot'
